@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Archivo de configuración de entrada para la aplicación del Visualizador -->
+<config>
+	<coberturas>
+		<cobertura>
+			<ano>1986</ano>
+			<tabla>cobertura_1986</tabla>
+		</cobertura>
+		<cobertura>
+			<ano>2000</ano>
+			<tabla>cobertura_2000</tabla>
+		</cobertura>
+		<cobertura>
+			<ano>2010</ano>
+			<tabla>cobertura_2010</tabla>
+		</cobertura>
+	</coberturas>
+	<categorias>
+		<categoria>
+			<nombre>Bosque</nombre>
+			<var>bosque</var>
+			<indice>1</indice>
+		</categoria>
+		<categoria>
+			<nombre>Cuerpo de Agua</nombre>
+			<var>cuerpoDeAgua</var>
+			<indice>2</indice>
+		</categoria>
+		<categoria>
+			<nombre>Otros Cultivos</nombre>
+			<var>otrosCultivos</var>
+			<indice>3</indice>
+		</categoria>
+		<categoria>
+			<nombre>Herbazal</nombre>
+			<var>herbazal</var>
+			<indice>4</indice>
+		</categoria>
+		<categoria>
+			<nombre>Infraestructura</nombre>
+			<var>infraestructura</var>
+			<indice>5</indice>
+		</categoria>
+		<categoria>
+			<nombre>Manglar</nombre>
+			<var>manglar</var>
+			<indice>6</indice>
+		</categoria>
+		<categoria>
+			<nombre>Terreno Descubierto</nombre>
+			<var>terrenoDescubierto</var>
+			<indice>7</indice>
+		</categoria>
+		<categoria>
+			<nombre>Vegetacion Anegada</nombre>
+			<var>vegetacionAnegada</var>
+			<indice>8</indice>
+		</categoria>
+		<categoria>
+			<nombre>Nubes</nombre>
+			<var>nubes</var>
+			<indice>9</indice>
+		</categoria>
+		<categoria>
+			<nombre>Sombras</nombre>
+			<var>sombras</var>
+			<indice>10</indice>
+		</categoria>
+		<categoria>
+			<nombre>Sabana</nombre>
+			<var>sabana</var>
+			<indice>11</indice>
+		</categoria>
+		<categoria>
+			<nombre>Paramo</nombre>
+			<var>paramo</var>
+			<indice>12</indice>
+		</categoria>
+		<categoria>
+			<nombre>Banano</nombre>
+			<var>banano</var>
+			<indice>13</indice>
+		</categoria>
+		<categoria>
+			<nombre>Palma Aceitera</nombre>
+			<var>palmaAceitera</var>
+			<indice>14</indice>
+		</categoria>
+		<categoria>
+			<nombre>Pina</nombre>
+			<var>pina</var>
+			<indice>15</indice>
+		</categoria>
+	</categorias>
+</config>
