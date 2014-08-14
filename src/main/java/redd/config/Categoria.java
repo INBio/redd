@@ -22,6 +22,27 @@ public class Categoria {
 		this.indice = indice;
 	}
 	
+	/**
+	 * @return the nombre
+	 */
+	public String getNombre() {
+		return nombre;
+	}
+
+	/**
+	 * @return the var
+	 */
+	public String getVar() {
+		return var;
+	}
+
+	/**
+	 * @return the indice
+	 */
+	public int getIndice() {
+		return indice;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

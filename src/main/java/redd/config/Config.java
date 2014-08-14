@@ -25,6 +25,34 @@ public class Config {
 		loadCategorias();
 		loadCoberturas();
 	}
+	
+	/**
+	 * Retornar el indice de la categoria dado un nombre de categoria.
+	 * 
+	 * @return el índice numérico de la categoria. -1 si no existe.
+	 */
+	public int getIndiceCategoria(String nombreCategoria) {
+		for(Categoria categoria: categorias) {
+			if(categoria.getNombre().equals(nombreCategoria)) {
+				return categoria.getIndice();
+			}
+		}
+		return -1;
+	}
+	
+	
+	/**
+	 * Retornar los nombres de todas las categorias.
+	 * 
+	 * @return nombre de las categorias.
+	 */
+	public List<String> getNombreCategorias() {
+		List<String> nombres = new ArrayList<String>();
+		for(Categoria categoria: categorias) {
+			nombres.add(categoria.getNombre());
+		}
+		return nombres;
+	}
 
 	/**
 	 * Tomar el archivo de configuración XML y cargar todas las categorias en un {@link List} de {@link Categoria}.
@@ -76,18 +104,25 @@ public class Config {
 	}	
 	
 	/**
-	 * Extraer un elemento de {@link Cobertura} 
+	 * Extraer un elemento de {@link Cobertura} del archivo XML de configuración
 	 * 
 	 * @param ano
 	 * @param tabla
 	 */
-    private void addCobertura(String ano, String tabla)
+    public void addCobertura(String ano, String tabla)
     {
     	Cobertura cobertura = new Cobertura(Integer.parseInt(ano), tabla);
     	coberturas.add(cobertura);
     }	    
     
-    private void addCategoria(String nombre, String var, String indice)
+    /**
+     * Extraer un elemento de {@link Categoria} del archivo XML de configuración
+     * 
+     * @param nombre
+     * @param var
+     * @param indice
+     */
+    public void addCategoria(String nombre, String var, String indice)
     {
     	Categoria categoria = new Categoria(nombre, var, Integer.parseInt(indice));
     	categorias.add(categoria);

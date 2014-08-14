@@ -40,8 +40,8 @@
 		//]);	
   var data = google.visualization.arrayToDataTable([
     ['Year', 'Banano', 'Bosque', 'Cuerpo de Agua', 'Herbazal', 'Infraestructura', 'Manglar', 'Nubes', 'Otros Cultivos','Palma Aceitera', 'Paramo', 'Pina', 'Sabana','Sombras', 'Terreno Descubierto', 'Vegetacion Anegada'],
-    ['1986',  banano1986,      bosque1986,      cuerpoDeAgua1986,            herbazal1986,         400,              400,        400,      400,              400,           400,      400,      400,      400,      400,                     400],
-    ['2000',  banano2000,      bosque2000,      cuerpoDeAgua2000,            herbazal2000,         400,              400,        400,      400,              400,           400,      400,      400,      400,      400,                     400]
+    ['1986',  banano1986, bosque1986, cuerpoDeAgua1986, herbazal1986, infraestructura1986, manglar1986, nubes1986, otrosCultivos1986, palmaAceitera1986, paramo1986, pina1986, sabana1986, sombras1986, terrenoDescubierto1986, vegetacionAnegada1986],
+    ['2000',  banano2000, bosque2000, cuerpoDeAgua2000, herbazal2000, infraestructura2000, manglar2000, nubes2000, otrosCultivos2000, palmaAceitera2000, paramo2000, pina2000, sabana2000, sombras1986, terrenoDescubierto2000, vegetacionAnegada2000]
   ]);
 		var options = {
 			title: 'Comparacion entre anos',

@@ -20,6 +20,20 @@ public class Cobertura {
 		this.tabla = tabla;
 	}
 	
+	/**
+	 * @return the ano
+	 */
+	public int getAno() {
+		return ano;
+	}
+
+	/**
+	 * @return the tabla
+	 */
+	public String getTabla() {
+		return tabla;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

@@ -1,4 +1,3 @@
-<%= request.getAttribute("stats.bosque") %>
 
 <script type="text/javascript">
 	var banano = parseInt('<%= request.getAttribute("stats1986.banano") %>');
@@ -16,8 +15,6 @@
 	var sombras = parseInt('<%= request.getAttribute("stats1986.sombras") %>');
 	var terrenoDescubierto = parseInt('<%= request.getAttribute("stats1986.terrenoDescubierto") %>');
 	var vegetacionAnegada = parseInt('<%= request.getAttribute("stats1986.vegetacionAnegada") %>');
-
-
 	
 	function drawChart() {
         var data = google.visualization.arrayToDataTable([
@@ -73,5 +70,8 @@
 
 </script>
 
-<div id="piechart" style="width: 900px; height: 500px;"></div>
+<table border="1" width="600"><tr><td>
 <div id="table_div" style="width: 350px; height: 500px;"></div>
+</td><td>
+<div id="piechart" style="width: 900px; height: 500px;"></div>
+</td></tr></table>

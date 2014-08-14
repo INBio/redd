@@ -28,7 +28,13 @@
 			<interceptor-ref name="i18n" />
 			<interceptor-ref name="basicStack" />
 			<result name="SUCCESS">sample2.jsp</result>
-		</action>			
+		</action>		
+		<action name="ver_distrito" class="redd.HomeAction"
+			method="verDistrito">
+			<interceptor-ref name="i18n" />
+			<interceptor-ref name="basicStack" />
+			<result name="SUCCESS">sample1.jsp</result>
+		</action>				
 	</package>
 
 	<package name="grab" extends="struts-default">
