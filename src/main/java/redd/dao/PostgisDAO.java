@@ -1,5 +1,7 @@
 package redd.dao;
 
+import java.sql.SQLException;
+
 import redd.model.CoverageStats;
 
 public interface PostgisDAO {
@@ -14,6 +16,7 @@ public interface PostgisDAO {
 	 */
 	public CoverageStats getCoverageStatsByPolygon(String polygon, int year);
 	
+
 	
 	/**
 	 * Dado el nombre de un distrito, retornar las estad’sticas de cobertura para
@@ -25,4 +28,5 @@ public interface PostgisDAO {
 	 * @return estad’sticas de cobertura
 	 */
 	public CoverageStats getCoverageByDistrict(String districtName, int year);
+	
 }

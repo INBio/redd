@@ -3,6 +3,13 @@
  */
 package redd;
 
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import redd.config.Config;
 import redd.dao.PostgisDAO;
 import redd.dao.impl.PostgisDAOImpl;
@@ -17,7 +24,8 @@ import com.opensymphony.xwork2.ActionSupport;
 public class HomeAction  extends ActionSupport {
 
 	static Config config = new Config();
-	PostgisDAO dao = new PostgisDAOImpl();
+	PostgisDAO dao;
+	DataSource ds;
 	private String geojson;
 	private String distrito;
 	private CoverageStats stats1986 = new CoverageStats();
@@ -36,6 +44,11 @@ public class HomeAction  extends ActionSupport {
 	}
 	
 	public String grab() {
+   	 ApplicationContext context = 
+   		new ClassPathXmlApplicationContext("datasource.xml");
+   	 
+   	 ds = (DataSource) context.getBean("dataSource");
+   	 dao = (PostgisDAO) context.getBean("postgisDAO");
 		stats1986 = dao.getCoverageStatsByPolygon(geojson, 1986);
 		return "SUCCESS";
 	}		
@@ -101,7 +114,5 @@ public class HomeAction  extends ActionSupport {
 	public void setDistrito(String distrito) {
 		this.distrito = distrito;
 	}	
-
-	
 
 }

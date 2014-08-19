@@ -16,14 +16,29 @@
 		</dependency>
 		<dependency>
 			<groupId>org.postgis</groupId>
-			<artifactId>postgis-driver</artifactId>
-			<version>1.0</version>
+			<artifactId>postgis-jdbc</artifactId>
+			<version>1.3.3</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.postgis</groupId>
+					<artifactId>postgis-stubs</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.2-1003-jdbc4</version>
 		</dependency>
+		<dependency>
+			<groupId>org.postgis</groupId>
+			<artifactId>postgis-driver</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+
+
 
 		<dependency>
 			<groupId>org.apache.struts</groupId>
@@ -45,6 +60,18 @@
 			<artifactId>commons-digester3</artifactId>
 			<version>3.2</version>
 		</dependency>
+		<!-- SPRING -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.0.6.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.0.6.RELEASE</version>
+		</dependency>
+
 	</dependencies>
 	<repositories>
 		<repository>
@@ -61,11 +88,11 @@
 				<version>8.1.15.v20140411</version>
 			</plugin>
 		</plugins>
-	   <resources>
-	     <resource>
-	       <directory>src/main/resources</directory>
-	     </resource>
-	   </resources>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 
 
 
