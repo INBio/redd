@@ -3,16 +3,15 @@
  */
 package redd;
 
-import java.sql.SQLException;
-
 import javax.sql.DataSource;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import redd.config.Config;
 import redd.dao.PostgisDAO;
-import redd.dao.impl.PostgisDAOImpl;
 import redd.model.CoverageStats;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -37,6 +36,8 @@ public class HomeAction  extends ActionSupport {
 		return "SUCCESS";
 	}	
 	
+	static final Logger logger = Logger.getLogger(HomeAction.class);
+	
 	public String compare() {
 		stats1986 = dao.getCoverageStatsByPolygon(geojson, 1986);
 		stats2000 = dao.getCoverageStatsByPolygon(geojson, 2000);
@@ -49,6 +50,7 @@ public class HomeAction  extends ActionSupport {
    	 
    	 ds = (DataSource) context.getBean("dataSource");
    	 dao = (PostgisDAO) context.getBean("postgisDAO");
+   	 System.out.println(geojson);
 		stats1986 = dao.getCoverageStatsByPolygon(geojson, 1986);
 		return "SUCCESS";
 	}		

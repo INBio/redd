@@ -1,13 +1,15 @@
 package redd.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.postgis.PGgeometry;
 
 public class GeoRow {
 
 	int gid;
 	int coverageType;
 	double km2;
-	boolean isInside;
+	double area;
+	
 	/**
 	 * @return the gid
 	 */
@@ -44,19 +46,20 @@ public class GeoRow {
 	public void setKm2(double km2) {
 		this.km2 = km2;
 	}
+	
 	/**
-	 * @return the isInside
+	 * @return the area
 	 */
-	public boolean isInside() {
-		return isInside;
-	}
-	/**
-	 * @param isInside the isInside to set
-	 */
-	public void setInside(boolean isInside) {
-		this.isInside = isInside;
+	public double getArea() {
+		return area;
 	}
 	
+	/**
+	 * @param area the area to set
+	 */
+	public void setArea(double area) {
+		this.area = area;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

@@ -18,3 +18,8 @@ UPDATE <tabla> SET orig_fid = 12 WHERE cobertura = 'Paramo';
 UPDATE <tabla> SET orig_fid = 13 WHERE cobertura = 'Banano';
 UPDATE <tabla> SET orig_fid = 14 WHERE cobertura = 'Palma aceitera';
 UPDATE <tabla> SET orig_fid = 15 WHERE cobertura = 'Pi–a';
+
+Al tener todas las coberturas en las tablas, se les debe declarar explicitamente el SRID mediante 
+la siguiente instrucci—n:
+
+SELECT UpdateGeometrySRID('NOMBRE_TABLA','ATRIBUTO_GEOMETRIA',32617);

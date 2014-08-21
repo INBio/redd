@@ -39,12 +39,15 @@ public class PostgisDAOImpl extends JdbcDaoSupport implements PostgisDAO {
 		CoverageStats stats = new CoverageStats();
 
 		// transform the polygon from one projection to the other
-		PGgeometry transformedPolygon = transformGeometry(polygon, 3857, 32617);
-
-		String strQuery = "select gid, orig_fid, km2, ST_Contains(?, ST_GeomFromText(ST_AsText(geom),32617)) from cobertura_1986";
+		String transformedPolygon = transformGeometry(polygon, 3857, 32617);
+				
+		String strQuery = "SELECT gid, orig_fid, km2, ST_Area(ST_Intersection(geom, ST_GeomFromText(ST_AsText(?),32617)))/1000000 FROM cobertura_1986 WHERE ST_Intersects(geom, ST_GeomFromText(ST_AsText(?),32617)) ";
 		List<GeoRow> rows = (List<GeoRow>) getJdbcTemplate().query(strQuery,
-				new Object[] { transformedPolygon }, new CoverageStatsMapper());
-
+				new Object[] { transformedPolygon, transformedPolygon }, new CoverageStatsMapper());
+		
+		System.out.println(rows);
+		
+		
 		stats.setBanano(countCategory(rows, 1));
 		stats.setBosque(countCategory(rows, 2));
 		stats.setCuerpoDeAgua(countCategory(rows, 3));
@@ -67,12 +70,15 @@ public class PostgisDAOImpl extends JdbcDaoSupport implements PostgisDAO {
 
 	public double countCategory(List<GeoRow> fullGeoList, int criteria) {
 		double sum = 0;
+		double km2 = 0;
 		for (GeoRow geoRow : fullGeoList) {
 			if (geoRow.getCoverageType() == criteria) {
-				sum += geoRow.getKm2();
+				sum += geoRow.getArea();
+				km2 += geoRow.getKm2();
 			}
 		}
-		return sum;
+		System.out.println("Criteria> " + criteria + " ... >" + km2);
+		return sum/1000000;
 	}
 
 	/*
@@ -205,19 +211,15 @@ public class PostgisDAOImpl extends JdbcDaoSupport implements PostgisDAO {
 	 * @param destinationProj destination projection
 	 * @return a polygon with the new projection
 	 */
-	private PGgeometry transformGeometry(String polygon, int originProj,
+	private String transformGeometry(String polygon, int originProj,
 			int destinationProj) {
 		String sql = "SELECT ST_Transform(ST_GeomFromText(?, ?), ?)";
 		String newPolygon = (String) getJdbcTemplate().queryForObject(sql,
 				new Object[] { polygon, originProj, destinationProj },
 				String.class);
 
-		try {
-			return new PGgeometry(newPolygon);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+			return newPolygon;
+
 	}
 
 }
