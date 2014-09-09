@@ -13,5 +13,9 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<bean id="postgisDAO" class="redd.dao.impl.PostgisDAOImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	
+	<bean id="accessDAO" class="redd.dao.impl.AccessDAOImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>	
 
 </beans>

@@ -16,31 +16,35 @@
 			<interceptor-ref name="basicStack" />
 			<result name="SUCCESS">index.jsp</result>
 		</action>
-		<!-- Application Home -->
-		<action name="grab" class="redd.HomeAction"
-			method="grab">
-			<interceptor-ref name="i18n" />
-			<interceptor-ref name="basicStack" />
-			<result name="SUCCESS">sample1.jsp</result>
-		</action>	
 		<action name="compare" class="redd.HomeAction"
 			method="compare">
 			<interceptor-ref name="i18n" />
 			<interceptor-ref name="basicStack" />
 			<result name="SUCCESS">sample2.jsp</result>
-		</action>		
-		<action name="ver_distrito" class="redd.HomeAction"
-			method="verDistrito">
+		</action>	
+		<action name="selectCantones" class="redd.HomeAction"
+			method="selectCantones">
 			<interceptor-ref name="i18n" />
 			<interceptor-ref name="basicStack" />
-			<result name="SUCCESS">sample1.jsp</result>
-		</action>				
-	</package>
-
-	<package name="grab" extends="struts-default">
-		<action name="index" class="redd.GrabAction">
-			<result>/sample1.jsp</result>
+			<result name="SUCCESS">cantones.jsp</result>
+		</action>			
+		<action name="selectDistritos" class="redd.HomeAction"
+			method="selectDistritos">
+			<interceptor-ref name="i18n" />
+			<interceptor-ref name="basicStack" />
+			<result name="SUCCESS">distritos.jsp</result>
 		</action>
+		<action name="grabStats" class="redd.HomeAction"
+			method="grabStats">
+			<interceptor-ref name="i18n" />
+			<interceptor-ref name="basicStack" />
+			<result name="SUCCESS">stats.jsp</result>
+		</action>	
+		<action name="grab" class="redd.HomeAction"
+			method="grab">
+			<interceptor-ref name="i18n" />
+			<interceptor-ref name="basicStack" />
+			<result name="SUCCESS">stats.jsp</result>
+		</action>						
 	</package>
-
 </struts>

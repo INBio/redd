@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -19,6 +19,8 @@
 	}
 </style>
 
+
+
 	<!-- Google & Openlayers libraries -->
     <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
     <script src="http://openlayers.org/api/OpenLayers.js"></script>
@@ -33,66 +35,40 @@
 	<!-- Custom libraries -->
 	<script type="text/javascript" src="javascript/initializeMap.js"></script>
 	<script type="text/javascript" src="javascript/mapEvents.js"></script>
+	<script type="text/javascript" src="javascript/navigationEvents.js"></script>
 
   </head>
   <body onload="init()">
+  
   [<a href="index">Home</a>] [<a href="comparacion">Comparacion Categorias</a>]
   
     <h1 id="title">Redd+ Visualizador (VERSION EN DESARROLLO!)</h1>      
 
+	
+	<table><tr><td>
+	<input type="radio" name="type" value="polygon" id="polygonToggle" onclick="toggleControl(this);"/>
+	<label for="polygonToggle">dibujar poligono</label>
+	<div id="map" class="smallmap"></div>
+	</td><td width="10">
+	</td><td>
+	<strong>Escoja su division administrativa</strong>
+	<br/><p/><br/>
+	<%@include file="carto_canvas.jsp" %>
+	<hr/>
+	<strong>Trazado a mano</strong>
+	<br/><p/><br/>
+	<%@include file="dynamic_canvas.jsp" %>
+	</td></tr></table>
 
 
-            <input type="radio" name="type" value="polygon" id="polygonToggle"
-                   onclick="toggleControl(this);"/>
-            <label for="polygonToggle">dibujar poligono</label>
+    
 
 
-    <div id="map" class="smallmap"></div>
+    
     
     <div id="statistics"></div>
-    
 
-    <p/><br/>
-    <table width="712"><tr><td width="237">
-        <center>
-    <select id="select1" class="styled-select">
-		<option value="1986">1986</option>
-		<option value="2000">2000</option>
-		<option value="2010">2010</option>
-	</select>
-    <br/><p/><br/>
-    <input type="button" value="Cargar estad&#237;sticas" id="bot_statistics">
-    
-    </td><td width="237">
-    
-    <center>
-    <select id="select1" class="styled-select">
-		<option value="1986">1986</option>
-		<option value="2000">2000</option>
-		<option value="2010">2010</option>
-	</select>
-		
-	
-	
-    <select id="select2" class="styled-select">
-		<option value="1986">1986</option>
-		<option value="2000" selected>2000</option>
-		<option value="2010">2010</option>
-	</select>
-	
-	<br/><p/><br/>
-    <input type="button" value="Comparar a&#241;os" id="bot_compare">
-    </center>
-    </td><td width="237">
-    <center>
-    <select id="select_distritos" class="styled-select">
-		<option value="1986">Acapulco</option>
-		<option value="2000">Aguabuena</option>
-		<option value="2010">Aguacaliente</option>
-	</select>   
-	<br/><p/><br/>
-	<input type="button" value="Ver Info Distrito" id="bot_distrito"> 
 	</center>
-    </td></tr></table>
+
   </body>
 </html>

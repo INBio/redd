@@ -49,9 +49,29 @@
         var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
         renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
 
+        var Puntos = new OpenLayers.Layer.WMS("Puntos",
+                "http://localhost:8090/geoserver/redd/wms", {
+                    'layers': 'redd:V3_TEMP',
+                    transparent: true,
+                    format: 'image/gif'
+                }, {
+                    isBaseLayer: false
+                }
+            );    
+        
+        var PuntosTotal = new OpenLayers.Layer.WMS("PuntosTotal",
+                "http://localhost:8090/geoserver/redd/wms", {
+                    'layers': 'redd:V3_TEMP_TOTAL',
+                    transparent: true,
+                    format: 'image/gif'
+                }, {
+                    isBaseLayer: false
+                }
+            );         
+        
         var Banano = new OpenLayers.Layer.WMS("Banano",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_Banano',
+                'layers': 'redd:V3_Banano',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -61,7 +81,7 @@
 
         var Bosque = new OpenLayers.Layer.WMS("Bosque",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_Bosque',
+                'layers': 'redd:V3_Bosque',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -71,7 +91,7 @@
 
         var CuerpoDeAgua = new OpenLayers.Layer.WMS("CuerpoDeAgua",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_CuerpoDeAgua',
+                'layers': 'redd:V3_CuerpoDeAgua',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -81,7 +101,7 @@
 
         var Herbazal = new OpenLayers.Layer.WMS("Herbazal",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_Herbazal',
+                'layers': 'redd:V3_Herbazal',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -91,7 +111,7 @@
 
         var Infraestructura = new OpenLayers.Layer.WMS("Infraestructura",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_Infraestructura',
+                'layers': 'redd:V3_Infraestructura',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -101,7 +121,7 @@
 
         var Manglar = new OpenLayers.Layer.WMS("Manglar",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_Manglar',
+                'layers': 'redd:V3_Manglar',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -111,7 +131,7 @@
 
         var Nubes = new OpenLayers.Layer.WMS("Nubes",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_Nubes',
+                'layers': 'redd:V3_Nubes',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -121,7 +141,7 @@
 
         var OtrosCultivos = new OpenLayers.Layer.WMS("OtrosCultivos",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_OtrosCultivos',
+                'layers': 'redd:V3_OtrosCultivos',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -131,7 +151,7 @@
 
         var PalmaAceitera = new OpenLayers.Layer.WMS("PalmaAceitera",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_PalmaAceitera',
+                'layers': 'redd:V3_PalmaAceitera',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -141,7 +161,7 @@
 
         var Paramo = new OpenLayers.Layer.WMS("Paramo",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_Paramo',
+                'layers': 'redd:V3_Paramo',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -151,7 +171,7 @@
 
         var Pina = new OpenLayers.Layer.WMS("Pina",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_Pina',
+                'layers': 'redd:V3_Pina',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -161,7 +181,7 @@
 
         var Sabana = new OpenLayers.Layer.WMS("Sabana",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_Sabana',
+                'layers': 'redd:V3_Sabana',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -171,7 +191,7 @@
 
         var Sombras = new OpenLayers.Layer.WMS("Sombras",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_Sombras',
+                'layers': 'redd:V3_Sombras',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -181,7 +201,7 @@
 
         var TerrenoDescubierto = new OpenLayers.Layer.WMS("TerrenoDescubierto",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_TerrenoDescubierto',
+                'layers': 'redd:V3_TerrenoDescubierto',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -191,7 +211,7 @@
 
         var VegetacionAnegada = new OpenLayers.Layer.WMS("VegetacionAnegada",
             "http://localhost:8090/geoserver/redd/wms", {
-                'layers': 'redd:V2_VegetacionAnegada',
+                'layers': 'redd:V3_VegetacionAnegada',
                 transparent: true,
                 format: 'image/gif'
             }, {
@@ -231,7 +251,8 @@
                 document.getElementById('counter').innerHTML = this.selectedFeatures.length;
             }
         });        
-
+        Puntos.setVisibility(false);
+        PuntosTotal.setVisibility(false);
 
         Banano.setVisibility(false);
         Bosque.setVisibility(false);
@@ -252,6 +273,8 @@
         guanacaste.setVisibility(false);
 
         // add all configured layers to the map
+        map.addLayer(Puntos);
+        map.addLayer(PuntosTotal);
         map.addLayer(Banano);
         map.addLayer(Bosque);
         map.addLayer(CuerpoDeAgua);
