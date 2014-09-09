@@ -18,7 +18,7 @@ import redd.model.GeoRow;
 public class CoverageStatsMapper implements RowMapper<GeoRow>
 {
 	public GeoRow mapRow(ResultSet rs, int rowNum) throws SQLException {
-		 
+		  
 		GeoRow geoRow = new GeoRow();
 		//geoRow.setGid(rs.getInt(1));
 		geoRow.setCoverageType(rs.getInt(1));
