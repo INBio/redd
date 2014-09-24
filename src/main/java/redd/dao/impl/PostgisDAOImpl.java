@@ -25,8 +25,7 @@ public class PostgisDAOImpl extends JdbcDaoSupport implements PostgisDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public CoverageStats getCoverageStatsByPolygon(String polygon, int year) {
-		
+	public CoverageStats getCoverageStatsByPolygon(String polygon, String tableName) {
 		//final Config config = new Config();
 		CoverageStats stats = new CoverageStats();
 
@@ -40,7 +39,7 @@ public class PostgisDAOImpl extends JdbcDaoSupport implements PostgisDAO {
 		// is completely inside the user-selected polygon or whether it only shares a portion
 		// true: completely inside
 		// false: shares a portion only
-		String strQuery = "SELECT land_cover_category_id, geom, km2, ST_Contains(ST_GeomFromText(ST_AsText(?),32617), geom) FROM land_cover_1986 WHERE ST_Intersects(geom, ST_GeomFromText(ST_AsText(?),32617)) ";
+		String strQuery = "SELECT land_cover_category_id, geom, km2, ST_Contains(ST_GeomFromText(ST_AsText(?),32617), geom) FROM " + tableName + " WHERE ST_Intersects(geom, ST_GeomFromText(ST_AsText(?),32617)) ";
 		List<GeoRow> rows = (List<GeoRow>) getJdbcTemplate().query(strQuery,
 				new Object[] { transformedPolygon, transformedPolygon }, new CoverageStatsMapper());		
 		

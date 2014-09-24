@@ -5,9 +5,9 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgis.DriverWrapper" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/redd_v1" />
+		<property name="url" value="jdbc:postgresql://172.16.16.82:5432/redd_v1" />
 		<property name="username" value="postgres" />
-		<property name="password" value="postgres" />
+		<property name="password" value="puravida" />
 	</bean>
 	
 	<bean id="postgisDAO" class="redd.dao.impl.PostgisDAOImpl">

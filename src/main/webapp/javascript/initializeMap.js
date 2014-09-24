@@ -1,5 +1,8 @@
 
     var map, drawControls, geojson, vectors;
+    var stuff = { myText: 'hello world!' };
+    var BosqueLoss_1986_2000, BosqueLoss_1986_2011, BosqueGain_1986_2000, BosqueGain_1986_2011;
+    var arr_gainLoss;
 
     OpenLayers.Feature.Vector.style['default']['strokeWidth'] = '2';
 
@@ -49,6 +52,85 @@
         var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
         renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
 
+        var demolayer = new OpenLayers.Layer.WMS(
+                "City of Boulder","http://localhost:8090/geoserver/gwc/service/wms", {
+                'layers': 'redd:bosque_gain_1986_2000',
+                format: 'image/png',
+                transparent: true
+                }, {
+                    isBaseLayer: false
+                }
+            );   
+        
+        
+        var Pina = new OpenLayers.Layer.WMS("Pina",
+                "http://localhost:8090/geoserver/redd/wms", {
+                    'layers': 'redd:V3_Pina',
+                    transparent: true,
+                    format: 'image/gif'
+                }, {
+                    isBaseLayer: false
+                }
+            );        
+        
+        BosqueLoss_1986_2000 = new OpenLayers.Layer.WMS("Perdida Boscosa 1986-2000",
+                "http://localhost:8090/geoserver/redd/wms", {
+                    'layers': 'redd:bosque_loss_1986_2000',
+                    transparent: true,
+                    format: 'image/gif'
+                }, {
+                    isBaseLayer: false
+                }
+            );    
+        
+        BosqueLoss_1986_2011 = new OpenLayers.Layer.WMS("Perdida Boscosa 1986-2011",
+                "http://localhost:8090/geoserver/redd/wms", {
+                    'layers': 'redd:bosque_loss_1986_2011',
+                    transparent: true,
+                    format: 'image/gif'
+                }, {
+                    isBaseLayer: false
+                }
+            );     
+        
+        BosqueGain_1986_2000 = new OpenLayers.Layer.WMS("Ganancia Boscosa 1986-2000",
+                "http://localhost:8090/geoserver/redd/wms", {
+                    'layers': 'redd:bosque_gain_1986_2000_split',
+                    transparent: true,
+                    format: 'image/gif'
+                }, {
+                    isBaseLayer: false
+                }
+            );     
+        
+        
+        
+        BosqueGain_1986_2011 = new OpenLayers.Layer.WMS("Ganancia Boscosa 1986-2011",
+                "http://localhost:8090/geoserver/redd/wms", {
+                    'layers': 'redd:bosque_gain_1986_2011',
+                    transparent: true,
+                    format: 'image/gif'
+                }, {
+                    isBaseLayer: false
+                }
+            );  
+     
+        
+
+        BosqueLoss_1986_2000.setVisibility(false);
+        BosqueLoss_1986_2011.setVisibility(false);
+        BosqueGain_1986_2000.setVisibility(false);
+        BosqueGain_1986_2011.setVisibility(false);
+
+
+        // add all configured layers to the map
+        map.addLayer(BosqueLoss_1986_2000);
+        map.addLayer(BosqueLoss_1986_2011);
+        map.addLayer(BosqueGain_1986_2000);
+        map.addLayer(BosqueGain_1986_2011);        
+
+        arr_gainLoss = {BosqueLoss_1986_2000: BosqueLoss_1986_2000, BosqueLoss_1986_2011: BosqueLoss_1986_2011, BosqueGain_1986_2000: BosqueGain_1986_2000, BosqueGain_1986_2011: BosqueGain_1986_2011}
+        
         var Puntos = new OpenLayers.Layer.WMS("Puntos",
                 "http://localhost:8090/geoserver/redd/wms", {
                     'layers': 'redd:V3_TEMP',
@@ -69,7 +151,7 @@
                 }
             );         
         
-        var Banano = new OpenLayers.Layer.WMS("Banano",
+        Banano = new OpenLayers.Layer.WMS("Banano",
             "http://localhost:8090/geoserver/redd/wms", {
                 'layers': 'redd:V3_Banano',
                 transparent: true,
@@ -79,7 +161,7 @@
             }
         );
 
-        var Bosque = new OpenLayers.Layer.WMS("Bosque",
+        Bosque = new OpenLayers.Layer.WMS("Bosque",
             "http://localhost:8090/geoserver/redd/wms", {
                 'layers': 'redd:V3_Bosque',
                 transparent: true,
@@ -251,6 +333,8 @@
                 document.getElementById('counter').innerHTML = this.selectedFeatures.length;
             }
         });        
+        
+        demolayer.setVisibility(false);
         Puntos.setVisibility(false);
         PuntosTotal.setVisibility(false);
 
@@ -273,6 +357,8 @@
         guanacaste.setVisibility(false);
 
         // add all configured layers to the map
+        map.addLayer(demolayer);
+        
         map.addLayer(Puntos);
         map.addLayer(PuntosTotal);
         map.addLayer(Banano);
@@ -281,17 +367,7 @@
         map.addLayer(Herbazal);
         map.addLayer(Infraestructura);
         map.addLayer(Manglar);
-        map.addLayer(Nubes);
-        map.addLayer(OtrosCultivos);
-        map.addLayer(PalmaAceitera);
-        map.addLayer(Paramo);
-        map.addLayer(Pina);
-        map.addLayer(Sabana);
-        map.addLayer(Sombras);
-        map.addLayer(TerrenoDescubierto);
-        map.addLayer(VegetacionAnegada);
-        map.addLayer(heredia);
-        map.addLayer(guanacaste);
+
         map.addLayer(vectors);
 
         map.addControl(new OpenLayers.Control.LayerSwitcher());

@@ -37,7 +37,7 @@ public class PopulateFact {
 	 */
 	public void populateFacts() {
 		
-		ExecutorService executor = Executors.newFixedThreadPool(7);
+		ExecutorService executor = Executors.newFixedThreadPool(10);
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				"datasource.xml");
@@ -72,10 +72,10 @@ public class PopulateFact {
 				//accessDAO.insertFact(landCoverId, geographicLayerPolygonId,
 				//		tableName, geom);
 			}
-	        executor.shutdown();
-	        while (!executor.isTerminated()) {
-	        }
-	        System.out.println("Finished all threads");	
 		}
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+        System.out.println("Finished all threads");	
 	}
 }

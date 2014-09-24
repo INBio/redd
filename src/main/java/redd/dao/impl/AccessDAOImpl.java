@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import redd.dao.AccessDAO;
-import redd.model.CoverageStats;
 import redd.model.Fact;
 import redd.model.GeographicLayer;
 import redd.model.GeographicLayerPolygon;
@@ -84,6 +83,36 @@ public class AccessDAOImpl extends JdbcDaoSupport implements AccessDAO {
 						new GeographicLayerPolygonMapper());
 		return rows;
 	}
+	
+	@Override
+	public GeographicLayerPolygon getGeographicLayerPolygonById(int id, boolean asWKT) {
+		String strQuery;
+		if(asWKT) {
+			strQuery = "SELECT id, name, ST_AsText(geom), geographic_layer_id from geographic_layer_polygon WHERE id=?";
+		}
+		else {
+			strQuery = "SELECT * from geographic_layer_polygon WHERE id=?";
+		}		
+		GeographicLayerPolygon polygon = (GeographicLayerPolygon) getJdbcTemplate()
+				.queryForObject(strQuery, new Object[] { id },
+						new GeographicLayerPolygonMapper());
+		return polygon;
+	}		
+	
+	@Override
+	public GeographicLayerPolygon getGeographicLayerPolygonById(int id, boolean asWKT, int projection) {
+		String strQuery;
+		if(asWKT) {
+			strQuery = "SELECT id, name, ST_AsText(ST_Transform(geom, " + projection + ")), geographic_layer_id from geographic_layer_polygon WHERE id=?";
+		}
+		else {
+			strQuery = "SELECT * from geographic_layer_polygon WHERE id=?";
+		}		
+		GeographicLayerPolygon polygon = (GeographicLayerPolygon) getJdbcTemplate()
+				.queryForObject(strQuery, new Object[] { id },
+						new GeographicLayerPolygonMapper());
+		return polygon;
+	}	
 
 	/*
 	 * (non-Javadoc)
@@ -97,6 +126,15 @@ public class AccessDAOImpl extends JdbcDaoSupport implements AccessDAO {
 				strQuery, new LandCoverMapper());
 		return rows;
 	}
+	
+	@Override
+	public LandCover getLandCoverById(int landCoverId) {
+		String strQuery = "SELECT id, name, description, table_name, year from land_cover WHERE id=?";
+		LandCover landCover = (LandCover) getJdbcTemplate()
+				.queryForObject(strQuery, new Object[] { landCoverId },
+						new LandCoverMapper());
+		return landCover;
+	}	
 
 	/*
 	 * (non-Javadoc)

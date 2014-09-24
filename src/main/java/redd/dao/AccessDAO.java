@@ -47,7 +47,36 @@ public interface AccessDAO {
 	 */
 	public List<GeographicLayerPolygon> getGeographicLayerPolygons(
 			int category, int parentId);
+	
+	
+	/**
+	 * Returns the corresponding {@link GeographicLayerPolygon} given its ID.
+	 * 
+	 * @param id the ID
+	 * @param asWKT decide whether to return the geom as WKT or no
+	 * @return a {@link GeographicLayerPolygon}
+	 */
+	public GeographicLayerPolygon getGeographicLayerPolygonById(int id,  boolean asWKT);
+	
+	/**
+	 * Returns the corresponding {@link GeographicLayerPolygon} given its ID.
+	 * 
+	 * @param id the ID
+	 * @param asWKT decide whether to return the geom as WKT or no
+	 * @param projection in which projection the polygon should be returned. If
+	 * left null, it returns it in the default projection (32617).
+	 * @return a {@link GeographicLayerPolygon}
+	 */
+	public GeographicLayerPolygon getGeographicLayerPolygonById(int id,  boolean asWKT, int projection);
 
+	/**
+	 * Returns a {@link LandCover} object given its ID.
+	 * 
+	 * @param landCoverId
+	 * @return a {@link LandCover} object
+	 */
+	public LandCover getLandCoverById(int landCoverId);
+	
 	/**
 	 * Returns a list of all available {@link LandCover}.
 	 * 

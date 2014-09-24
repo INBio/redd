@@ -19,8 +19,6 @@
 	}
 </style>
 
-
-
 	<!-- Google & Openlayers libraries -->
     <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
     <script src="http://openlayers.org/api/OpenLayers.js"></script>
@@ -33,6 +31,9 @@
     </script>    
 	
 	<!-- Custom libraries -->
+    <script type="text/javascript">
+    	  
+    </script>  	
 	<script type="text/javascript" src="javascript/initializeMap.js"></script>
 	<script type="text/javascript" src="javascript/mapEvents.js"></script>
 	<script type="text/javascript" src="javascript/navigationEvents.js"></script>
@@ -44,13 +45,16 @@
   
     <h1 id="title">Redd+ Visualizador (VERSION EN DESARROLLO!)</h1>      
 
-	
 	<table><tr><td>
 	<input type="radio" name="type" value="polygon" id="polygonToggle" onclick="toggleControl(this);"/>
 	<label for="polygonToggle">dibujar poligono</label>
 	<div id="map" class="smallmap"></div>
 	</td><td width="10">
 	</td><td>
+	<strong>Ganancia / Perdida Boscosa</strong>
+	<br/><p/><br/>
+	<%@include file="forest_gain_loss.jsp" %>
+	<hr/>	
 	<strong>Escoja su division administrativa</strong>
 	<br/><p/><br/>
 	<%@include file="carto_canvas.jsp" %>
@@ -63,7 +67,7 @@
 
     
 
-
+	<p/><br/>
     
     
     <div id="statistics"></div>

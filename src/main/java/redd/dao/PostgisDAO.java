@@ -9,10 +9,10 @@ public interface PostgisDAO {
 	 * Los resultados estar‡n filtrados por el a–o proporcionado.
 	 * 
 	 * @param polygon el pol’gono que el usuario seleccion— a mano alzada
-	 * @param year el a–o de la cobertura
+	 * @param el nombre de la tabla para la cobertura
 	 * @return estad’sticas de cobertura
 	 */
-	public CoverageStats getCoverageStatsByPolygon(String polygon, int year);
+	public CoverageStats getCoverageStatsByPolygon(String polygon, String tableName);
 	
 	
 }
