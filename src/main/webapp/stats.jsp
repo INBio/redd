@@ -35,7 +35,9 @@
           ['Vegetacion Anegada', vegetacionAnegada]
         ]);	
         var options = {
-          title: 'Cobertura'
+          title: 'Cobertura',
+          width: 600,
+          height: 500
         };
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         chart.draw(data, options);
@@ -68,9 +70,10 @@
 	}	
 
 </script>
-
+<div id="basic-modal-content">
 <table border="1" width="600"><tr><td>
-<div id="table_div" style="width: 350px; height: 500px;"></div>
+<div id="table_div" style="width: 300px;"></div>
 </td><td>
-<div id="piechart" style="width: 900px; height: 500px;"></div>
+<div id="piechart" style="width: 600px;"></div>
 </td></tr></table>
+</div>

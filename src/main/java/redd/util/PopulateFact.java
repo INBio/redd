@@ -45,7 +45,7 @@ public class PopulateFact {
 		accessDAO = (AccessDAO) context.getBean("accessDAO");
 
 		List<GeographicLayerPolygon> polygons = accessDAO
-				.getGeographicLayerPolygons(3);
+				.getGeographicLayerPolygons();
 
 		List<LandCover> landCovers = accessDAO.getLandCovers();
 

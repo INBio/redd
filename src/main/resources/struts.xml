@@ -16,6 +16,12 @@
 			<interceptor-ref name="basicStack" />
 			<result name="SUCCESS">index.jsp</result>
 		</action>
+		<action name="index2" class="redd.HomeAction"
+			method="execute">
+			<interceptor-ref name="i18n" />
+			<interceptor-ref name="basicStack" />
+			<result name="SUCCESS">index2.jsp</result>
+		</action>		
 		<action name="compare" class="redd.HomeAction"
 			method="compare">
 			<interceptor-ref name="i18n" />

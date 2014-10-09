@@ -1,0 +1,60 @@
+html,body,#map {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+#text {
+	background-color: #fff;
+	height: 100%;
+	left: 0;
+	padding: 0.5em;
+	position: absolute;
+	top: 65px;
+	width: 300px;
+}
+
+.olControlLayerSwitcher .maximizeDiv,.olControlLayerSwitcher .minimizeDiv
+	{
+	top: 200px !important;
+}
+
+.olControlLayerSwitcher {
+	top: 200px !important
+}
+
+#header {
+	background: url("http://redd-mas.cr/images/fondo-amarillo.png") repeat-x
+		scroll 0 0/5px 40px #fff;
+	height: 65px;
+	left: 0;
+	position: absolute;
+	top: 0;
+	vertical-align: middle;
+	width: 100%;
+}
+
+#simplemodal-container a.modalCloseImg {
+	background: url(/images/x.png) no-repeat; /* adjust url as required */
+	width: 25px;
+	height: 29px;
+	display: inline;
+	z-index: 3200;
+	position: absolute;
+	top: -15px;
+	right: -18px;
+	cursor: pointer;
+}
+
+#statistics {
+	display: none;
+}
+
+#simplemodal-container {
+	height: 500px;
+	width: 900px;
+	color: #000000;
+	background-color: #ffffff;
+	border: 4px solid #444;
+	padding: 12px;
+}

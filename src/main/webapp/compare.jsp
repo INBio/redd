@@ -28,7 +28,9 @@
   ]);
 		var options = {
 			title: 'Ganancia / Perdida (km2)',
-			hAxis: {title: 'Ano', titleTextStyle: {color: 'red'}}
+			hAxis: {title: 'Perdida / Ganancia', titleTextStyle: {color: 'red'}},
+            width: 600,
+            height: 500			
 		};        
         
         var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
@@ -38,4 +40,4 @@
 
 </script>
 
-<div id="piechart" style="width: 900px; height: 500px;"></div>
+<div id="piechart" style="width: 600px;"></div>
