@@ -15,9 +15,7 @@
     <div id="statistics"></div>
     <div id="map"></div>
     
-    <div id="text">
-		<input type="radio" name="type" value="polygon" id="polygonToggle" onclick="toggleControl(this);"/>
-		<label for="polygonToggle">dibujar poligono</label>
+    <div id="text"> 
 
 		<div id="accordion">
 			<div>
@@ -71,7 +69,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     
     <!-- Simple Modal -->
-    <script type="text/javascript" src="javascript/jquery.simplemodal-1.4.4.js"></script>
+    <script type="text/javascript" src="javascript/vendor/jquery.simplemodal-1.4.4.js"></script>
     
     <!-- Google Charts -->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>

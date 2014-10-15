@@ -6,7 +6,9 @@ package redd;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
@@ -23,24 +25,26 @@ import redd.model.LandCover;
 import redd.model.LandCoverCategory;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.config.entities.Parameterizable;
 
 /**
  * @author jose
  * 
  */
-public class HomeAction extends ActionSupport {
+public class HomeAction extends ActionSupport  implements Parameterizable {
 
 	private static final long serialVersionUID = 3320964248147576677L;
 
 	static final Logger logger = Logger.getLogger(HomeAction.class);
+	
+	private Map<String, String> params = new HashMap<String, String>();
 
 	// DAOs
 	AccessDAO accessDAO;
 	PostgisDAO postgisDAO;
 
 	// for navigating through the Provincia/Canton/Distrito select boxes
-	String provinciaId;
-	String cantonId;
+	String id;
 
 	// for filling up a select box with all the Land Covers available
 	List<LandCover> landCovers;
@@ -63,9 +67,7 @@ public class HomeAction extends ActionSupport {
 
 	// lists for holding geographic polygons (province, district, conserv. area,
 	// etc)
-	private List<GeographicLayerPolygon> provincias = new ArrayList<GeographicLayerPolygon>();
-	private List<GeographicLayerPolygon> cantones = new ArrayList<GeographicLayerPolygon>();
-	private List<GeographicLayerPolygon> distritos = new ArrayList<GeographicLayerPolygon>();
+	private List<GeographicLayerPolygon> geoPolygons = new ArrayList<GeographicLayerPolygon>();
 
 	private GeographicLayerPolygon geoPolygon = new GeographicLayerPolygon();
 
@@ -81,7 +83,7 @@ public class HomeAction extends ActionSupport {
 				"datasource.xml");
 		accessDAO = (AccessDAO) context.getBean("accessDAO");
 		postgisDAO = (PostgisDAO) context.getBean("postgisDAO");
-		provincias = accessDAO
+		geoPolygons = accessDAO
 				.getGeographicLayerPolygons(Constants.PolygonCategory.PROVINCIA
 						.getValue());
 	}
@@ -101,40 +103,18 @@ public class HomeAction extends ActionSupport {
 	}
 
 	/**
-	 * @return the provincias
+	 * @return the geoPolygons
 	 */
-	public List<GeographicLayerPolygon> getProvincias() {
-		return provincias;
-	}
-
-	/**
-	 * @return the cantones
-	 */
-	public List<GeographicLayerPolygon> getCantones() {
-		return cantones;
-	}
-
-	/**
-	 * @return the distritos
-	 */
-	public List<GeographicLayerPolygon> getDistritos() {
-		return distritos;
+	public List<GeographicLayerPolygon> getGeoPolygons() {
+		return geoPolygons;
 	}
 
 	/**
 	 * @param provinciaId
 	 *            the provinciaId to set
 	 */
-	public void setProvinciaId(String provinciaId) {
-		this.provinciaId = provinciaId;
-	}
-
-	/**
-	 * @param cantonId
-	 *            the cantonId to set
-	 */
-	public void setCantonId(String cantonId) {
-		this.cantonId = cantonId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
@@ -287,22 +267,10 @@ public class HomeAction extends ActionSupport {
 	 * 
 	 * @return the cantones
 	 */
-	public String selectCantones() {
-		cantones = accessDAO.getGeographicLayerPolygons(
-				Constants.PolygonCategory.CANTON.getValue(),
-				Integer.parseInt(provinciaId));
-		return "SUCCESS";
-	}
-
-	/**
-	 * Return a list of all distritos given its parent id (cantonId)
-	 * 
-	 * @return the distritos
-	 */
-	public String selectDistritos() {
-		distritos = accessDAO.getGeographicLayerPolygons(
-				Constants.PolygonCategory.DISTRITO.getValue(),
-				Integer.parseInt(cantonId));
+	public String selectGeoPolygons() {
+		geoPolygons = accessDAO.getGeographicLayerPolygons(
+				Constants.PolygonCategory.valueOf(params.get("geoPolygonFilter")).getValue(),
+				Integer.parseInt(id));
 		return "SUCCESS";
 	}
 
@@ -333,6 +301,21 @@ public class HomeAction extends ActionSupport {
 	public List<LandCoverCategory> getLandCoverCategories() {
 		return accessDAO.getLandCoverCategories();
 	}
+
+    @Override
+    public void addParam(String key, String value) {
+        this.params.put(key, value);
+    }
+ 
+    @Override
+    public Map<String, String> getParams() {
+        return this.params;
+    }
+ 
+    @Override
+    public void setParams(Map<String, String> params) {
+        this.params = params;
+    }
 	
 	
 }

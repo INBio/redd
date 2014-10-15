@@ -29,16 +29,20 @@
 			<result name="SUCCESS">compare.jsp</result>
 		</action>	
 		<action name="selectCantones" class="redd.HomeAction"
-			method="selectCantones">
+			method="selectGeoPolygons">
+			<param name="geoPolygonFilter">CANTON</param>	
+			<interceptor-ref name="staticParams" />		
 			<interceptor-ref name="i18n" />
 			<interceptor-ref name="basicStack" />
-			<result name="SUCCESS">cantones.jsp</result>
+			<result name="SUCCESS">jsp/division_politica/cantones.jsp</result>
 		</action>			
 		<action name="selectDistritos" class="redd.HomeAction"
-			method="selectDistritos">
+			method="selectGeoPolygons">
+			<param name="geoPolygonFilter">DISTRITO</param>			
+			<interceptor-ref name="staticParams" />
 			<interceptor-ref name="i18n" />
 			<interceptor-ref name="basicStack" />
-			<result name="SUCCESS">distritos.jsp</result>
+			<result name="SUCCESS">jsp/division_politica/distritos.jsp</result>
 		</action>
 		<action name="displayPolygon" class="redd.HomeAction"
 			method="displayPolygon">

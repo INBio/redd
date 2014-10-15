@@ -20,6 +20,7 @@
 map = new OpenLayers.Map( {
 	projection: 'EPSG:3857',
 	maxResolution: 1000,
+	theme: null,
     div: "map",
     layers: [
              new OpenLayers.Layer.Google(
@@ -40,13 +41,52 @@ map = new OpenLayers.Map( {
                 enableKinetic: true
             }
         }),
-        new OpenLayers.Control.Attribution()
+        new OpenLayers.Control.Attribution(),
     ],
     center: new OpenLayers.LonLat(-85.0, 9.7)
 	// Google.v3 uses web mercator as projection, so we have to
 	// transform our coordinates
 	.transform('EPSG:4326', 'EPSG:3857'),
 	zoom: 8
+});
+
+
+//this layer is the one used for selecting the free-hand polygon
+vectors = new OpenLayers.Layer.Vector("Vector Layer");
+
+//Creation of a custom panel with a ZoomBox control with the alwaysZoom option sets to true				
+OpenLayers.Control.CustomNavToolbar = OpenLayers.Class(OpenLayers.Control.Panel, {
+
+    /**
+     * Constructor: OpenLayers.Control.NavToolbar 
+     * Add our two mousedefaults controls.
+     *
+     * Parameters:
+     * options - {Object} An optional object whose properties will be used
+     *     to extend the control.
+     */
+	
+	
+    initialize: function(options) {
+        OpenLayers.Control.Panel.prototype.initialize.apply(this, [options]);
+        this.addControls([
+          new OpenLayers.Control.EditingToolbar(vectors),
+        ]);
+		// To make the custom navtoolbar use the regular navtoolbar style
+		this.displayClass = 'olControlNavToolbar'
+    },
+	
+	
+
+    /**
+     * Method: draw 
+     * calls the default draw, and then activates mouse defaults.
+     */
+    draw: function() {
+        var div = OpenLayers.Control.Panel.prototype.draw.apply(this, arguments);
+        this.defaultControl = this.controls[0];
+        return div;
+    }
 });
 
 
@@ -158,18 +198,6 @@ LandCover_2000 = new OpenLayers.Layer.WMS("Land Cover 2000",
 
 
 
-// this layer is the one used for selecting the free-hand polygon
-vectors = new OpenLayers.Layer.Vector("Vector Layer", {
-    renderers: renderer
-});
-vectors.events.on({
-    'featureselected': function(feature) {
-        document.getElementById('counter').innerHTML = this.selectedFeatures.length;
-    },
-    'featureunselected': function(feature) {
-        document.getElementById('counter').innerHTML = this.selectedFeatures.length;
-    }
-}); 
 
 // array that holds all forest gains/losses to be referenced by JQuery functions
 arr_gainLoss = {No_Bosque_2000: No_Bosque_2000, Bosque_1986: Bosque_1986, Bosque_2000: Bosque_2000, Bosque_2011: Bosque_2011, BosqueLoss_1986_2000: BosqueLoss_1986_2000, /*BosqueLoss_1986_2011: BosqueLoss_1986_2011,*/ BosqueGain_1986_2000: BosqueGain_1986_2000/*, BosqueGain_1986_2011: BosqueGain_1986_2011*/}
@@ -200,19 +228,13 @@ map.addLayer(BosqueGain_1986_2000);
 //map.addLayer(BosqueGain_1986_2011);
 map.addLayer(vectors);
 
-    
-    
-    
-    drawControls = {
-            polygon: new OpenLayers.Control.DrawFeature(
-                vectors, OpenLayers.Handler.Polygon
-            ),
-        };
 
-        for (var key in drawControls) {
-            map.addControl(drawControls[key]);
-        }
-   
+    
+
+        
+		var panel = new OpenLayers.Control.CustomNavToolbar();
+        map.addControl(panel);	
+
 
     function toggleControl(element) {
         for (key in drawControls) {

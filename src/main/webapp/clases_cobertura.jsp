@@ -3,8 +3,10 @@
     <td colspan="2">
     
     <center>
-    <select id="select_cobertura_dinamico_pre">
-	<option value="-">1986</option>
+	<select id="select_land_cover_clases_cobertura">
+	<s:iterator value="landCovers">
+		<option value="<s:property value="id"/>"><s:property value="year"/></option>
+		</s:iterator>	
 	</select>
 	</center>
 	<p/><br/><p/>

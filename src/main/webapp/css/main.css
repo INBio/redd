@@ -34,6 +34,17 @@ html,body,#map {
 	width: 100%;
 }
 
+.olControlNavToolbar {
+    top: 295px;
+    left: 320px;
+}
+
+
+.olControlEditingToolbar {
+    right: 0;
+    top: 295px;
+}
+
 #simplemodal-container a.modalCloseImg {
 	background: url(/images/x.png) no-repeat; /* adjust url as required */
 	width: 25px;

@@ -3,7 +3,7 @@
 	<tr><td>
 	    <select id="select_cobertura_provincia">
 	    	<option value="-">-</option>
-			<s:iterator value="provincias">
+			<s:iterator value="geoPolygons">
 				<option value="<s:property value="id"/>"><s:property value="name"/></option>
 			</s:iterator>
 		</select> 

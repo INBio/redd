@@ -23,21 +23,9 @@ function returnBounds(features) {
             $("#cantones").html('<img src="images/ajax_loader.gif">');
             
             var urlCompleta = "displayPolygon?polygonId=" + provinciaId;
-            $.get(urlCompleta, function(data) {
-            	vectors.removeAllFeatures();
-                var wkt = new OpenLayers.Format.WKT();
-                var features = wkt.read(data);
-                
-                // zooming to the selected distrito
-                var bounds = returnBounds(features);
-                
-                map.zoomToExtent(bounds);
-                map.zoomOut();
-                map.moveByPx(-300,0);
-                vectors.addFeatures(features);
-            });             
+            $.get(urlCompleta, drawGeographicPolygon);        
             
-            urlCompleta = "selectCantones?provinciaId=" + provinciaId;
+            urlCompleta = "selectCantones?id=" + provinciaId;
             $.get(urlCompleta, function(data) {
                 console.log(data);
                 $("#cantones").html(data);
@@ -48,21 +36,9 @@ function returnBounds(features) {
             $("#distritos").html('<img src="images/ajax_loader.gif">');
             
             var urlCompleta = "displayPolygon?polygonId=" + cantonId;
-            $.get(urlCompleta, function(data) {
-            	vectors.removeAllFeatures();
-                var wkt = new OpenLayers.Format.WKT();
-                var features = wkt.read(data);
-                
-                // zooming to the selected distrito
-                var bounds = returnBounds(features);
-                
-                map.zoomToExtent(bounds);
-                map.zoomOut();
-                map.moveByPx(-300,0);
-                vectors.addFeatures(features);
-            });            
+            $.get(urlCompleta, drawGeographicPolygon);         
             
-            urlCompleta = "selectDistritos?cantonId=" + cantonId;
+            urlCompleta = "selectDistritos?id=" + cantonId;
             $.get(urlCompleta, function(data) {
                 console.log(data);
                 $("#distritos").html(data);
@@ -72,118 +48,85 @@ function returnBounds(features) {
         $(document.body).on('change', '#select_cobertura_distrito' , function() {
             var distritoId = $("#select_cobertura_distrito").val();
             var urlCompleta = "displayPolygon?polygonId=" + distritoId;
-            $.get(urlCompleta, function(data) {
-            	vectors.removeAllFeatures();
-                var wkt = new OpenLayers.Format.WKT();
-                var features = wkt.read(data);
-                
-                // zooming to the selected distrito
-                var bounds = returnBounds(features);
-                
-                map.zoomToExtent(bounds);
-                map.zoomOut();
-                map.moveByPx(-300,0);
-                vectors.addFeatures(features);
+            $.get(urlCompleta, drawGeographicPolygon);
+        });    
+        
+        function drawGeographicPolygon(data) {
+        	vectors.removeAllFeatures();
+            var wkt = new OpenLayers.Format.WKT();
+            var features = wkt.read(data);
+            
+            // zooming to the selected distrito
+            var bounds = returnBounds(features);
+            
+            map.zoomToExtent(bounds);
+            map.zoomOut();
+            map.moveByPx(-300,0);
+            vectors.addFeatures(features);
+        }
+        
+        function closeDialog(dialog) {
+        	dialog.data.fadeOut('slow', function () {
+        		dialog.container.slideUp('slow', function () {
+        			dialog.overlay.fadeOut('slow', function () {
+        				$.modal.close(); // must call this!
+        			});
+        		});
+        	});
+        }
+        
+        function openDialog(dialog) {
+        	dialog.overlay.fadeIn('slow', function () {
+        		dialog.container.slideDown('slow', function () {
+        			dialog.data.fadeIn('slow');
+        		});
+        	});
+        }   
+        
+        function coberturaClick(data) {
+            console.log(data);
+            $("#statistics").html(data);
+            drawChart();
+            drawTable();   
+            $("#statistics").modal({
+                onClose: closeDialog,
+                onOpen: openDialog
             });
-        });        
+        }
+        
         $("#bot_cobertura_distrito").click(function() {
             var distritoId = $("#select_cobertura_distrito").val();
             var coverageYearId = $("#select_land_cover_distrito").val();
             var urlCompleta = "grabStats?polygonId=" + distritoId + "&coverageId=" + coverageYearId;
             $("#statistics").html("<img src='images/ajax_loader.gif'>");
-            $.get(urlCompleta, function(data) {
-                console.log(data);
-                $("#statistics").html(data);
-                drawChart();
-                drawTable();   
-                $("#statistics").modal({
-                		
-                		
-	                onClose: function (dialog) {
-	                	dialog.data.fadeOut('slow', function () {
-	                		dialog.container.slideUp('slow', function () {
-	                			dialog.overlay.fadeOut('slow', function () {
-	                				$.modal.close(); // must call this!
-	                			});
-	                		});
-	                	});
-	                },
-	                onOpen: function (dialog) {
-	                	dialog.overlay.fadeIn('slow', function () {
-	                		dialog.container.slideDown('slow', function () {
-	                			dialog.data.fadeIn('slow');
-	                		});
-	                	});
-	                }
-                });
-            });
+            $.get(urlCompleta, coberturaClick);
         });     
         $("#bot_cobertura_canton").click(function() {
             var cantonId = $("#select_cobertura_canton").val();
             var coverageYearId = $("#select_land_cover_canton").val();
             var urlCompleta = "grabStats?polygonId=" + cantonId + "&coverageId=" + coverageYearId;
             $("#statistics").html("<img src='images/ajax_loader.gif'>");
-            $.get(urlCompleta, function(data) {
-                console.log(data);
-                $("#statistics").html(data);
-                drawChart();
-                drawTable();   
-                $("#statistics").modal({
-                		
-                		
-	                onClose: function (dialog) {
-	                	dialog.data.fadeOut('slow', function () {
-	                		dialog.container.slideUp('slow', function () {
-	                			dialog.overlay.fadeOut('slow', function () {
-	                				$.modal.close(); // must call this!
-	                			});
-	                		});
-	                	});
-	                },
-	                onOpen: function (dialog) {
-	                	dialog.overlay.fadeIn('slow', function () {
-	                		dialog.container.slideDown('slow', function () {
-	                			dialog.data.fadeIn('slow');
-	                		});
-	                	});
-	                }
-                });
-            });
+            $.get(urlCompleta, coberturaClick);
         });        
         $("#bot_cobertura_provincia").click(function() {
             var provinciaId = $("#select_cobertura_provincia").val();
             var coverageYearId = $("#select_land_cover_provincia").val();
             var urlCompleta = "grabStats?polygonId=" + provinciaId + "&coverageId=" + coverageYearId;
             $("#statistics").html("<img src='images/ajax_loader.gif'>");
-            $.get(urlCompleta, function(data) {
-                console.log(data);
-                $("#statistics").html(data);
-                drawChart();
-                drawTable();   
-                $("#statistics").modal({
-                		
-                		
-	                onClose: function (dialog) {
-	                	dialog.data.fadeOut('slow', function () {
-	                		dialog.container.slideUp('slow', function () {
-	                			dialog.overlay.fadeOut('slow', function () {
-	                				$.modal.close(); // must call this!
-	                			});
-	                		});
-	                	});
-	                },
-	                onOpen: function (dialog) {
-	                	dialog.overlay.fadeIn('slow', function () {
-	                		dialog.container.slideDown('slow', function () {
-	                			dialog.data.fadeIn('slow');
-	                		});
-	                	});
-	                }
-                });
-            });
+            $.get(urlCompleta, coberturaClick);
         });       
         
 
+        function removeVisibilityGainLoss() {
+        	No_Bosque_2000.setVisibility(false);
+        	Bosque_1986.setVisibility(false);
+        	Bosque_2000.setVisibility(false);
+        	Bosque_2011.setVisibility(false);
+        	BosqueLoss_1986_2000.setVisibility(false);
+        	BosqueGain_1986_2000.setVisibility(false);
+     	   
+        }
+        
         $("#bot_perdida_ganancia_boscosa").click(function() {
         	var type = $("#select_land_cover_ganancia_perdida :selected").val();
         	
@@ -196,25 +139,26 @@ function returnBounds(features) {
             
             var layerLandCover = 'LandCover_';
             
+        	layerLossStr = layerLossStr.concat(firstYear).concat("_").concat(secondYear);
+        	layerGainStr = layerGainStr.concat(firstYear).concat("_").concat(secondYear);   
+        	layerBosqueStr = layerBosqueStr.concat(secondYear);
+        	layerNoBosque = layerNoBosque.concat(secondYear);
+        	layerLandCover = layerLandCover.concat(secondYear);
+            
             if(type==1) {
-            	layerBosqueStr = layerBosqueStr.concat(secondYear);
-            	layerNoBosque = layerNoBosque.concat(secondYear);
-            	layerLossStr = layerLossStr.concat(firstYear).concat("_").concat(secondYear);
-            	layerGainStr = layerGainStr.concat(firstYear).concat("_").concat(secondYear);
+            	removeVisibilityGainLoss();
             	arr_gainLoss[layerBosqueStr].setVisibility(true);
             	arr_gainLoss[layerNoBosque].setVisibility(true);
             	arr_gainLoss[layerLossStr].setVisibility(true);
             	arr_gainLoss[layerGainStr].setVisibility(true);
             }
             else if(type==2) {
-            	layerLandCover = layerLandCover.concat(secondYear);
-            	layerLossStr = layerLossStr.concat(firstYear).concat("_").concat(secondYear);
+            	removeVisibilityGainLoss();
             	arr_deforestation[layerLandCover].setVisibility(true);
             	arr_deforestation[layerLossStr].setVisibility(true);
             }
             else if(type==3) {
-            	layerLandCover = layerLandCover.concat(secondYear);
-            	layerGainStr = layerGainStr.concat(firstYear).concat("_").concat(secondYear);
+            	removeVisibilityGainLoss();
             	arr_forestation[layerLandCover].setVisibility(true);
             	arr_forestation[layerGainStr].setVisibility(true);
             }             
@@ -222,15 +166,18 @@ function returnBounds(features) {
         
         $(document).ready(function() {
             $("[id=chbox_land_cover]").click(function(event) {
-            	var categoriaId = event.target.value;
-            	var categoriaStr = 'category_id:' + categoriaId;
+            	var categoriaStr = 'category_id:' + event.target.value;
+            	var yearCategoria = $("#select_land_cover_clases_cobertura :selected").text();
+            	var categoriaId = event.target.value + '_' + yearCategoria;
+            	var yearCategoriaStr = 'redd:land_cover_category_' + yearCategoria;
+            	var style = event.target.value;
             	
             	if(arrayCategorias[categoriaId]==null) {
             	arrayCategorias[categoriaId] = new OpenLayers.Layer.WMS("Bosque 1986",
                         "http://172.16.16.82:8080/geoserver/redd/wms", {
-                            'layers': 'redd:land_cover_category_1986',
+                            'layers': yearCategoriaStr,
                             transparent: true,
-                            'styles':categoriaId,
+                            'styles':style,
                             viewparams:categoriaStr,
                             format: 'image/png'
                         }, {
@@ -240,7 +187,8 @@ function returnBounds(features) {
             	}
             	if( this.checked ) {
             		arrayCategorias[categoriaId].setVisibility(true);
-            		map.addLayer(arrayCategorias[categoriaId]);   
+            		map.addLayer(arrayCategorias[categoriaId]);  
+            		select_land_cover_clases_cobertura
             	}
             	else {
             		arrayCategorias[categoriaId].setVisibility(false);
@@ -266,24 +214,8 @@ function returnBounds(features) {
                 drawChart();
                 drawTable();
                 $("#statistics").modal({
-            		
-            		
-	                onClose: function (dialog) {
-	                	dialog.data.fadeOut('slow', function () {
-	                		dialog.container.slideUp('slow', function () {
-	                			dialog.overlay.fadeOut('slow', function () {
-	                				$.modal.close(); // must call this!
-	                			});
-	                		});
-	                	});
-	                },
-	                onOpen: function (dialog) {
-	                	dialog.overlay.fadeIn('slow', function () {
-	                		dialog.container.slideDown('slow', function () {
-	                			dialog.data.fadeIn('slow');
-	                		});
-	                	});
-	                }
+	                onClose: closeDialog,
+	                onOpen: openDialog
                 });
             });
         });
@@ -303,25 +235,9 @@ function returnBounds(features) {
                 $("#statistics").html(data);
                 drawChart();
                 $("#statistics").modal({
-            		
-            		
-	                onClose: function (dialog) {
-	                	dialog.data.fadeOut('slow', function () {
-	                		dialog.container.slideUp('slow', function () {
-	                			dialog.overlay.fadeOut('slow', function () {
-	                				$.modal.close(); // must call this!
-	                			});
-	                		});
-	                	});
-	                },
-	                onOpen: function (dialog) {
-	                	dialog.overlay.fadeIn('slow', function () {
-	                		dialog.container.slideDown('slow', function () {
-	                			dialog.data.fadeIn('slow');
-	                		});
-	                	});
-	                }
-                });                
+	                onClose: closeDialog,
+	                onOpen: openDialog
+                });              
             });
         });        
         
