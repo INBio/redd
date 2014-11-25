@@ -1,19 +1,19 @@
 <script type="text/javascript">
-	var banano = parseFloat('<%= request.getAttribute("stats.banano") %>');
-	var bosque = parseFloat('<%= request.getAttribute("stats.bosque") %>');
-	var cuerpoDeAgua = parseFloat('<%= request.getAttribute("stats.cuerpoDeAgua") %>');
-	var herbazal = parseFloat('<%= request.getAttribute("stats.herbazal") %>');	
-	var infraestructura = parseFloat('<%= request.getAttribute("stats.infraestructura") %>');
-	var manglar = parseFloat('<%= request.getAttribute("stats.manglar") %>');
-	var nubes = parseFloat('<%= request.getAttribute("stats.nubes") %>');
-	var otrosCultivos = parseFloat('<%= request.getAttribute("stats.otrosCultivos") %>');
-	var palmaAceitera = parseFloat('<%= request.getAttribute("stats.palmaAceitera") %>');
-	var paramo = parseFloat('<%= request.getAttribute("stats.paramo") %>');
-	var pina = parseFloat('<%= request.getAttribute("stats.pina") %>');
-	var sabana = parseFloat('<%= request.getAttribute("stats.sabana") %>');
-	var sombras = parseFloat('<%= request.getAttribute("stats.sombras") %>');
-	var terrenoDescubierto = parseFloat('<%= request.getAttribute("stats.terrenoDescubierto") %>');
-	var vegetacionAnegada = parseFloat('<%= request.getAttribute("stats.vegetacionAnegada") %>');
+	var banano = parseFloat(parseFloat('<%= request.getAttribute("stats.banano") %>').toFixed(2));
+	var bosque = parseFloat(parseFloat('<%= request.getAttribute("stats.bosque") %>').toFixed(2));
+	var cuerpoDeAgua = parseFloat(parseFloat('<%= request.getAttribute("stats.cuerpoDeAgua") %>').toFixed(2));
+	var herbazal = parseFloat(parseFloat('<%= request.getAttribute("stats.herbazal") %>').toFixed(2));	
+	var infraestructura = parseFloat(parseFloat('<%= request.getAttribute("stats.infraestructura") %>').toFixed(2));
+	var manglar = parseFloat(parseFloat('<%= request.getAttribute("stats.manglar") %>').toFixed(2));
+	var nubes = parseFloat(parseFloat('<%= request.getAttribute("stats.nubes") %>').toFixed(2));
+	var otrosCultivos = parseFloat(parseFloat('<%= request.getAttribute("stats.otrosCultivos") %>').toFixed(2));
+	var palmaAceitera = parseFloat(parseFloat('<%= request.getAttribute("stats.palmaAceitera") %>').toFixed(2));
+	var paramo = parseFloat(parseFloat('<%= request.getAttribute("stats.paramo") %>').toFixed(2));
+	var pina = parseFloat(parseFloat('<%= request.getAttribute("stats.pina") %>').toFixed(2));
+	var sabana = parseFloat(parseFloat('<%= request.getAttribute("stats.sabana") %>').toFixed(2));
+	var sombras = parseFloat(parseFloat('<%= request.getAttribute("stats.sombras") %>').toFixed(2));
+	var terrenoDescubierto = parseFloat(parseFloat('<%= request.getAttribute("stats.terrenoDescubierto") %>').toFixed(2));
+	var vegetacionAnegada = parseFloat(parseFloat('<%= request.getAttribute("stats.vegetacionAnegada") %>').toFixed(2));
 	
 	function drawChart() {
         var data = google.visualization.arrayToDataTable([
@@ -37,7 +37,9 @@
         var options = {
           title: 'Cobertura',
           width: 600,
-          height: 500
+          height: 500,
+          colors: ['#00EEEE', '#267300', '#0000FF', '#FFFFBE', '#FF0000', '#A020F0', '#FFFFFF', '#EE9A00', '#8B8B00', '#EED2EE', '#008B8B', '#EE30A7', '#000000', '#8B4726', '#7FFF00'],
+    	  pieSliceBorderColor : "#000000"     
         };
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         chart.draw(data, options);

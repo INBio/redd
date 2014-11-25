@@ -23,6 +23,7 @@ map = new OpenLayers.Map( {
 	theme: null,
     div: "map",
     layers: [
+    		new OpenLayers.Layer.OSM("Open Street Map"),
              new OpenLayers.Layer.Google(
              "Google Streets", // the default
              {
@@ -33,7 +34,7 @@ map = new OpenLayers.Map( {
             "Google Physical", {
                 type: google.maps.MapTypeId.TERRAIN
             }
-        )
+        ),        
     ],
     controls: [
         new OpenLayers.Control.Navigation({
@@ -41,7 +42,17 @@ map = new OpenLayers.Map( {
                 enableKinetic: true
             }
         }),
-        new OpenLayers.Control.Attribution(),
+		 new OpenLayers.Control.MousePosition({
+			prefix: '<a target="_blank" ' +
+			'href="http://spatialreference.org/ref/epsg/4326/">' +
+			'EPSG:4326</a> coordinates: ',
+			separator: ' | ',
+			numDigits: 2,
+			emptyString: 'Mouse is not over map.'
+		}),   
+        new OpenLayers.Control.ZoomBox({alwaysZoom:true}),
+        new OpenLayers.Control.ZoomPanel(),
+        new OpenLayers.Control.ScaleLine(),
     ],
     center: new OpenLayers.LonLat(-85.0, 9.7)
 	// Google.v3 uses web mercator as projection, so we have to
@@ -49,7 +60,6 @@ map = new OpenLayers.Map( {
 	.transform('EPSG:4326', 'EPSG:3857'),
 	zoom: 8
 });
-
 
 //this layer is the one used for selecting the free-hand polygon
 vectors = new OpenLayers.Layer.Vector("Vector Layer");
@@ -71,6 +81,7 @@ OpenLayers.Control.CustomNavToolbar = OpenLayers.Class(OpenLayers.Control.Panel,
         OpenLayers.Control.Panel.prototype.initialize.apply(this, [options]);
         this.addControls([
           new OpenLayers.Control.EditingToolbar(vectors),
+          new OpenLayers.Control.ZoomBox({alwaysZoom:true})
         ]);
 		// To make the custom navtoolbar use the regular navtoolbar style
 		this.displayClass = 'olControlNavToolbar'
@@ -166,9 +177,20 @@ var Bosque_1986 = new OpenLayers.Layer.WMS("Bosque 1986",
     }
 );
 
-var Bosque_2000 = new OpenLayers.Layer.WMS("Bosque 2000",
+var BosquePermanece_2000 = new OpenLayers.Layer.WMS("Bosque permanece 86-2000",
         "http://172.16.16.82:8080/geoserver/gwc/service/wms", {
             'layers': 'redd:bosque_permanece_2000',
+            transparent: true,
+            format: 'image/png'
+        }, {
+            isBaseLayer: false
+        }
+    );
+
+
+var Bosque_2000 = new OpenLayers.Layer.WMS("Bosque 2000",
+        "http://172.16.16.82:8080/geoserver/wms", {
+            'layers': 'redd:bosque_2000',
             transparent: true,
             format: 'image/png'
         }, {
@@ -199,13 +221,15 @@ LandCover_2000 = new OpenLayers.Layer.WMS("Land Cover 2000",
 
 
 
+
 // array that holds all forest gains/losses to be referenced by JQuery functions
-arr_gainLoss = {No_Bosque_2000: No_Bosque_2000, Bosque_1986: Bosque_1986, Bosque_2000: Bosque_2000, Bosque_2011: Bosque_2011, BosqueLoss_1986_2000: BosqueLoss_1986_2000, /*BosqueLoss_1986_2011: BosqueLoss_1986_2011,*/ BosqueGain_1986_2000: BosqueGain_1986_2000/*, BosqueGain_1986_2011: BosqueGain_1986_2011*/}
+arr_gainLoss = {BosquePermanece_2000: BosquePermanece_2000, No_Bosque_2000: No_Bosque_2000, Bosque_1986: Bosque_1986, Bosque_2000: Bosque_2000, Bosque_2011: Bosque_2011, BosqueLoss_1986_2000: BosqueLoss_1986_2000, /*BosqueLoss_1986_2011: BosqueLoss_1986_2011,*/ BosqueGain_1986_2000: BosqueGain_1986_2000/*, BosqueGain_1986_2011: BosqueGain_1986_2011*/}
 arr_deforestation = {LandCover_2000: LandCover_2000, BosqueLoss_1986_2000: BosqueLoss_1986_2000}
 arr_forestation = {LandCover_2000: LandCover_2000, BosqueGain_1986_2000: BosqueGain_1986_2000}
 
 LandCover_2000.setVisibility(false);
 Bosque_1986.setVisibility(false);
+BosquePermanece_2000.setVisibility(false);
 Bosque_2000.setVisibility(false);
 Bosque_2011.setVisibility(false);
 No_Bosque_2000.setVisibility(false);
@@ -215,11 +239,11 @@ BosqueGain_1986_2000.setVisibility(false);
 //BosqueLoss_1986_2011.setVisibility(false);
 //BosqueGain_1986_2011.setVisibility(false);
 
-
 // add all configured layers to the map
 map.addLayer(LandCover_2000);
 map.addLayer(Bosque_1986);
 map.addLayer(Bosque_2000);
+map.addLayer(BosquePermanece_2000);
 map.addLayer(Bosque_2011);
 map.addLayer(No_Bosque_2000);
 map.addLayer(BosqueLoss_1986_2000);

@@ -12,15 +12,7 @@ html,body,#map {
 	position: absolute;
 	top: 65px;
 	width: 300px;
-}
-
-.olControlLayerSwitcher .maximizeDiv,.olControlLayerSwitcher .minimizeDiv
-	{
-	top: 200px !important;
-}
-
-.olControlLayerSwitcher {
-	top: 200px !important
+	z-index: 800;
 }
 
 #header {
@@ -32,29 +24,86 @@ html,body,#map {
 	top: 0;
 	vertical-align: middle;
 	width: 100%;
+	z-index: 800;
 }
 
+/* PARA  LOS COLORES DE LAS CATEGORIAS */
+#cobertura1
+{ background-color: #267300; color: #FFFFFF; height: 10px;}
+#cobertura2
+{ background-color: #0000FF; color: #FFFFFF; height: 10px;}
+#cobertura3
+{ background-color: #EE9A00; color: #FFFFFF; height: 10px;}
+#cobertura4
+{ background-color: #FFFFBE; color: #FFFFFF; height: 10px;}
+#cobertura5
+{ background-color: #FF0000; color: #FFFFFF; height: 10px;}
+#cobertura6
+{ background-color: #A020F0; color: #FFFFFF; height: 10px;}
+#cobertura7
+{ background-color: #8B4726; color: #FFFFFF; height: 10px;}
+#cobertura8
+{ background-color: #7FFF00; color: #FFFFFF; height: 10px;}
+#cobertura9
+{ background-color: #FFFFFF; color: #FFFFFF; height: 10px;}
+#cobertura10
+{ background-color: #000000; color: #FFFFFF; height: 10px;}
+#cobertura11
+{ background-color: #EE30A7; color: #FFFFFF; height: 10px;}
+#cobertura12
+{ background-color: #EED2EE; color: #FFFFFF; height: 10px;}
+#cobertura13
+{ background-color: #00EEEE; color: #FFFFFF; height: 10px;}
+#cobertura14
+{ background-color: #8B8B00; color: #FFFFFF; height: 10px;}
+#cobertura15
+{ background-color: #008B8B; color: #FFFFFF; height: 10px;}
+
+
+
+/* FOR EDITING GRAPHICAL COMPONENTS THAT GO ON TOP OF THE OPEN LAYERS MAP */
+
 .olControlNavToolbar {
-    top: 295px;
+    top: 195px;
     left: 320px;
 }
 
+.olControlLayerSwitcher .maximizeDiv,.olControlLayerSwitcher .minimizeDiv
+	{
+	top: 200px !important;
+}
+
+.olControlLayerSwitcher {
+	top: 200px !important
+}
 
 .olControlEditingToolbar {
     right: 0;
-    top: 295px;
+    top: 70px;
 }
 
+.olControlZoomPanel {
+    top: 80px;
+    left: 320px;
+    z-index: 200;
+}
+
+.olControlScaleLine {
+  bottom: 10px;
+  left: 320px;
+}
+
+
 #simplemodal-container a.modalCloseImg {
-	background: url(/images/x.png) no-repeat; /* adjust url as required */
+	background: url(../images/x.png) no-repeat; /* adjust url as required */
 	width: 25px;
 	height: 29px;
 	display: inline;
-	z-index: 3200;
 	position: absolute;
-	top: -15px;
+	top: -14px;
 	right: -18px;
 	cursor: pointer;
+	z-index: 9999 !important;
 }
 
 #statistics {
@@ -68,4 +117,28 @@ html,body,#map {
 	background-color: #ffffff;
 	border: 4px solid #444;
 	padding: 12px;
+	z-index: 9999 !important;
 }
+
+
+/* TOOLTIPS */
+a.tooltip {outline:none; }
+a.tooltip strong {line-height:30px;}
+a.tooltip:hover {text-decoration:none;} 
+a.tooltip span {
+    z-index:10;display:none; padding:14px 20px;
+    margin-top:-30px; margin-left:28px;
+    width:300px; line-height:16px;
+}
+a.tooltip:hover span{
+    display:inline; position:absolute; color:#111;
+    border:1px solid #DCA; background:#fffAF0;}
+.callout {z-index:20;position:absolute;top:30px;border:0;left:-12px;}
+    
+/*CSS3 extras*/
+a.tooltip span
+{
+    border-radius:4px;
+    box-shadow: 5px 5px 8px #CCC;
+}
+

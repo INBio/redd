@@ -14,7 +14,7 @@
 			</s:iterator>	
 		</select>
 	</td><td>
-		<input type="button" value="Cobertura" id="bot_cobertura_provincia">	
+		<input type="button" value="Calcular" id="bot_cobertura_provincia">	
 	</td></tr>
 	<tr><td>
 	<div id="cantones">
@@ -29,7 +29,7 @@
 			</s:iterator>	
 		</select>
 	</td><td>
-		<input type="button" value="Cobertura" id="bot_cobertura_canton">
+		<input type="button" value="Calcular" id="bot_cobertura_canton">
 	</td></tr>
 	<tr><td>
 	<div id="distritos">
@@ -44,6 +44,6 @@
 			</s:iterator>	
 		</select>	
 	</td><td>
-		<input type="button" value="Cobertura" id="bot_cobertura_distrito">
+		<input type="button" value="Calcular" id="bot_cobertura_distrito">
 	</td></tr>
 	</table>

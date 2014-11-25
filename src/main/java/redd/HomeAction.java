@@ -68,6 +68,12 @@ public class HomeAction extends ActionSupport  implements Parameterizable {
 	// lists for holding geographic polygons (province, district, conserv. area,
 	// etc)
 	private List<GeographicLayerPolygon> geoPolygons = new ArrayList<GeographicLayerPolygon>();
+	
+	private List<GeographicLayerPolygon> areasConservacionPolygons = new ArrayList<GeographicLayerPolygon>();
+	
+	private List<GeographicLayerPolygon> areasSilvestresPolygons = new ArrayList<GeographicLayerPolygon>();
+	
+	private List<GeographicLayerPolygon> cuencasHidrograficasPolygons  = new ArrayList<GeographicLayerPolygon>();
 
 	private GeographicLayerPolygon geoPolygon = new GeographicLayerPolygon();
 
@@ -86,6 +92,15 @@ public class HomeAction extends ActionSupport  implements Parameterizable {
 		geoPolygons = accessDAO
 				.getGeographicLayerPolygons(Constants.PolygonCategory.PROVINCIA
 						.getValue());
+		areasConservacionPolygons = accessDAO
+				.getGeographicLayerPolygons(Constants.PolygonCategory.AREA_CONSERVACION
+						.getValue()); 
+		areasSilvestresPolygons = accessDAO
+				.getGeographicLayerPolygons(Constants.PolygonCategory.AREA_SILVESTRE
+						.getValue()); 
+		cuencasHidrograficasPolygons = accessDAO
+				.getGeographicLayerPolygons(Constants.PolygonCategory.CUENCA_HIDROGRAFICA
+						.getValue()); 
 	}
 
 	/**
@@ -108,6 +123,27 @@ public class HomeAction extends ActionSupport  implements Parameterizable {
 	public List<GeographicLayerPolygon> getGeoPolygons() {
 		return geoPolygons;
 	}
+
+	/**
+	 * @return the areasConservacionPolygons
+	 */
+	public List<GeographicLayerPolygon> getAreasConservacionPolygons() {
+		return areasConservacionPolygons;
+	}
+	
+	/**
+	 * @return the areasSilvestresPolygons
+	 */
+	public List<GeographicLayerPolygon> getAreasSilvestresPolygons() {
+		return areasSilvestresPolygons;
+	}	
+	
+	/**
+	 * @return the cuencasHidrograficasPolygons
+	 */
+	public List<GeographicLayerPolygon> getCuencasHidrograficasPolygons() {
+		return cuencasHidrograficasPolygons;
+	}	
 
 	/**
 	 * @param provinciaId
@@ -232,9 +268,6 @@ public class HomeAction extends ActionSupport  implements Parameterizable {
 				preLandCover.getTableName());
 		postStats = postgisDAO.getCoverageStatsByPolygon(geojson,
 				postLandCover.getTableName());
-
-		System.out.println(preStats);
-		System.out.println(postStats);
 
 		// compare values from both years
 		stats.setBanano(postStats.getBanano() - preStats.getBanano());

@@ -1,19 +1,19 @@
 <script type="text/javascript">
-	var banano = parseInt('<%= request.getAttribute("stats.banano") %>');
-	var bosque = parseInt('<%= request.getAttribute("stats.bosque") %>');
-	var cuerpoDeAgua = parseInt('<%= request.getAttribute("stats.cuerpoDeAgua") %>');
-	var herbazal = parseInt('<%= request.getAttribute("stats.herbazal") %>');	
-	var infraestructura = parseInt('<%= request.getAttribute("stats.infraestructura") %>');
-	var manglar = parseInt('<%= request.getAttribute("stats.manglar") %>');
-	var nubes = parseInt('<%= request.getAttribute("stats.nubes") %>');
-	var otrosCultivos = parseInt('<%= request.getAttribute("stats.otrosCultivos") %>');
-	var palmaAceitera = parseInt('<%= request.getAttribute("stats.palmaAceitera") %>');
-	var paramo = parseInt('<%= request.getAttribute("stats.paramo") %>');
-	var pina = parseInt('<%= request.getAttribute("stats.pina") %>');
-	var sabana = parseInt('<%= request.getAttribute("stats.sabana") %>');
-	var sombras = parseInt('<%= request.getAttribute("stats.sombras") %>');
-	var terrenoDescubierto = parseInt('<%= request.getAttribute("stats.terrenoDescubierto") %>');
-	var vegetacionAnegada = parseInt('<%= request.getAttribute("stats.vegetacionAnegada") %>');
+	var banano = parseFloat(parseFloat('<%= request.getAttribute("stats.banano") %>').toFixed(2));
+	var bosque = parseFloat(parseFloat('<%= request.getAttribute("stats.bosque") %>').toFixed(2));
+	var cuerpoDeAgua = parseFloat(parseFloat('<%= request.getAttribute("stats.cuerpoDeAgua") %>').toFixed(2));
+	var herbazal = parseFloat(parseFloat('<%= request.getAttribute("stats.herbazal") %>').toFixed(2));	
+	var infraestructura = parseFloat(parseFloat('<%= request.getAttribute("stats.infraestructura") %>').toFixed(2));
+	var manglar = parseFloat(parseFloat('<%= request.getAttribute("stats.manglar") %>').toFixed(2));
+	var nubes = parseFloat(parseFloat('<%= request.getAttribute("stats.nubes") %>').toFixed(2));
+	var otrosCultivos = parseFloat(parseFloat('<%= request.getAttribute("stats.otrosCultivos") %>').toFixed(2));
+	var palmaAceitera = parseFloat(parseFloat('<%= request.getAttribute("stats.palmaAceitera") %>').toFixed(2));
+	var paramo = parseFloat(parseFloat('<%= request.getAttribute("stats.paramo") %>').toFixed(2));
+	var pina = parseFloat(parseFloat('<%= request.getAttribute("stats.pina") %>').toFixed(2));
+	var sabana = parseFloat(parseFloat('<%= request.getAttribute("stats.sabana") %>').toFixed(2));
+	var sombras = parseFloat(parseFloat('<%= request.getAttribute("stats.sombras") %>').toFixed(2));
+	var terrenoDescubierto = parseFloat(parseFloat('<%= request.getAttribute("stats.terrenoDescubierto") %>').toFixed(2));
+	var vegetacionAnegada = parseFloat(parseFloat('<%= request.getAttribute("stats.vegetacionAnegada") %>').toFixed(2));
 	
 	function drawChart() {
 	
@@ -30,7 +30,7 @@
 			title: 'Ganancia / Perdida (km2)',
 			hAxis: {title: 'Perdida / Ganancia', titleTextStyle: {color: 'red'}},
             width: 600,
-            height: 500			
+            height: 500
 		};        
         
         var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));

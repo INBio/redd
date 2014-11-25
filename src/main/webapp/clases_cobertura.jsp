@@ -14,7 +14,11 @@
 	</td></tr>
     
 		<s:iterator value="landCoverCategories">
-			<tr><td><input type="checkbox" id="chbox_land_cover" value="<s:property value="id"/>"><font size="-2"><s:property value="name"/></font></td></tr>
+			<tr><td>
+			<div id="cobertura<s:property value="id"/>">.</div>
+			</td><td>
+				<input type="checkbox"  id="chbox_land_cover" value="<s:property value="id"/>"><font size="-2"><s:property value="name"/></font>
+			</td></tr>
 		</s:iterator>
     
     

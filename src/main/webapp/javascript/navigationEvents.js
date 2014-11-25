@@ -18,6 +18,30 @@ function returnBounds(features) {
 
 	$(document).ready(function() {
     	
+		
+        $("#bot_borrar_poligonos").click(function() {
+    		vectors.removeAllFeatures();
+        });  		
+		
+        $("#select_cobertura_conservacion").change(function() {
+            var conservacionId = $("#select_cobertura_conservacion").val();            
+            var urlCompleta = "displayPolygon?polygonId=" + conservacionId;
+            $.get(urlCompleta, drawGeographicPolygon);        
+        });
+        
+        $("#select_cobertura_cuenca").change(function() {
+            var cuencaId = $("#select_cobertura_cuenca").val();            
+            var urlCompleta = "displayPolygon?polygonId=" + cuencaId;
+            $.get(urlCompleta, drawGeographicPolygon);        
+        });        
+        
+        $("#areas_silvestres_text_hidden").change(function() {
+        	var silvestreId = $("#areas_silvestres_text_hidden").val();
+            var urlCompleta = "displayPolygon?polygonId=" + silvestreId;
+            $.get(urlCompleta, drawGeographicPolygon);        
+        });        
+		
+		
         $("#select_cobertura_provincia").change(function() {
             var provinciaId = $("#select_cobertura_provincia").val();
             $("#cantones").html('<img src="images/ajax_loader.gif">');
@@ -94,27 +118,49 @@ function returnBounds(features) {
             });
         }
         
+        function getCobertura(polygonId,coverageYearId) {
+            var urlCompleta = "grabStats?polygonId=" + polygonId + "&coverageId=" + coverageYearId;
+            $("#statistics").html("<img src='images/ajax_loader.gif'>");
+            $.get(urlCompleta, coberturaClick);        
+        } 
+        
         $("#bot_cobertura_distrito").click(function() {
             var distritoId = $("#select_cobertura_distrito").val();
             var coverageYearId = $("#select_land_cover_distrito").val();
-            var urlCompleta = "grabStats?polygonId=" + distritoId + "&coverageId=" + coverageYearId;
-            $("#statistics").html("<img src='images/ajax_loader.gif'>");
-            $.get(urlCompleta, coberturaClick);
+            getCobertura(distritoId, coverageYearId);
         });     
+        
         $("#bot_cobertura_canton").click(function() {
             var cantonId = $("#select_cobertura_canton").val();
             var coverageYearId = $("#select_land_cover_canton").val();
-            var urlCompleta = "grabStats?polygonId=" + cantonId + "&coverageId=" + coverageYearId;
-            $("#statistics").html("<img src='images/ajax_loader.gif'>");
-            $.get(urlCompleta, coberturaClick);
-        });        
+            getCobertura(cantonId, coverageYearId);
+        });     
+           
         $("#bot_cobertura_provincia").click(function() {
             var provinciaId = $("#select_cobertura_provincia").val();
             var coverageYearId = $("#select_land_cover_provincia").val();
-            var urlCompleta = "grabStats?polygonId=" + provinciaId + "&coverageId=" + coverageYearId;
-            $("#statistics").html("<img src='images/ajax_loader.gif'>");
-            $.get(urlCompleta, coberturaClick);
-        });       
+            getCobertura(provinciaId, coverageYearId);
+        });    
+            
+        $("#bot_cobertura_conservacion").click(function() {
+            var conservacionId = $("#select_cobertura_conservacion").val();
+            var coverageYearId = $("#select_land_cover_conservacion").val();
+            getCobertura(conservacionId, coverageYearId);
+        });        
+        
+        $("#bot_cobertura_cuenca").click(function() {
+            var cuencaId = $("#select_cobertura_cuenca").val();
+            var coverageYearId = $("#select_land_cover_cuenca").val();
+            getCobertura(cuencaId, coverageYearId);
+        });         
+          
+        $("#bot_cobertura_silvestre").click(function() {
+            var silvestreId = $("#areas_silvestres_text_hidden").val();
+            var coverageYearId = $("#select_land_cover_silvestre").val();
+            getCobertura(silvestreId, coverageYearId);
+        });           
+        
+          
         
 
         function removeVisibilityGainLoss() {
@@ -130,7 +176,7 @@ function returnBounds(features) {
         $("#bot_perdida_ganancia_boscosa").click(function() {
         	var type = $("#select_land_cover_ganancia_perdida :selected").val();
         	
-        	var layerBosqueStr = 'Bosque_';
+        	var layerBosqueStr = 'BosquePermanece_';
         	var layerNoBosque = 'No_Bosque_'; 
         	var layerLossStr = 'BosqueLoss_';
         	var layerGainStr = 'BosqueGain_';

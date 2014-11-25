@@ -46,6 +46,7 @@ public class PostgisDAOImpl extends JdbcDaoSupport implements PostgisDAO {
 		// list that holds all geometries that share a portion with the user-selected polygon
 		// this will serve to iterate over remaining geometries and calculate the shared area.
 		List<GeoRow> sharedGeometries = new ArrayList<GeoRow>();
+		
 		List<GeoRow> containedGeometries = new ArrayList<GeoRow>();
 		
 		// containedGeometries will contain all polygons residing on the user-selected polygon
@@ -67,7 +68,7 @@ public class PostgisDAOImpl extends JdbcDaoSupport implements PostgisDAO {
 		List<GeoRow> consolidatedList = new ArrayList<GeoRow>();
 		consolidatedList.addAll(sharedGeometries);
 		consolidatedList.addAll(containedGeometries);
-		
+
 		stats.setBosque(countCategory(consolidatedList, 1));
 		stats.setCuerpoDeAgua(countCategory(consolidatedList, 2));
 		stats.setOtrosCultivos(countCategory(consolidatedList, 3));
